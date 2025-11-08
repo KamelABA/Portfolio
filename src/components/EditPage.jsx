@@ -2,12 +2,99 @@ import React, { useState, useEffect } from 'react'
 import { usePortfolio } from '../context/PortfolioContext'
 import Footer from './Footer'
 
+// Helper functions to read from localStorage with defaults
+const getFromLocalStorage = (key, defaultValue) => {
+  try {
+    const saved = localStorage.getItem(key)
+    if (saved) {
+      return JSON.parse(saved)
+    }
+  } catch (error) {
+    console.error(`Error reading ${key} from localStorage:`, error)
+  }
+  return defaultValue
+}
+
+const getProfilePhotoFromStorage = () => {
+  try {
+    const saved = localStorage.getItem('portfolio-profile')
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      return parsed.photo || '/images/kamoula.jpg'
+    }
+    // Try old format for migration
+    const oldSaved = localStorage.getItem('portfolio-profile-photo')
+    if (oldSaved) {
+      return oldSaved
+    }
+  } catch (error) {
+    console.error('Error reading profile photo from localStorage:', error)
+  }
+  return '/images/kamoula.jpg'
+}
+
+// Default values (matching PortfolioContext defaults)
+const defaultSkills = [
+  {
+    title: "Frontend",
+    skills: ["React", "Vue.js", "JavaScript", "TypeScript", "HTML/CSS", "Tailwind CSS"]
+  },
+  {
+    title: "Backend",
+    skills: ["Node.js", "Python", "Express", "MongoDB", "PostgreSQL", "REST APIs"]
+  },
+  {
+    title: "Tools & Others",
+    skills: ["Git", "Docker", "AWS", "Figma", "Vite", "Webpack"]
+  }
+]
+
+const defaultProjects = [
+  {
+    id: 1,
+    title: "E-Commerce Platform",
+    description: "A full-featured e-commerce platform with payment integration and admin dashboard.",
+    tech: ["React", "Node.js", "MongoDB", "Stripe"],
+    image: "🛒"
+  },
+  {
+    id: 2,
+    title: "Task Management App",
+    description: "Collaborative task management tool with real-time updates and team collaboration features.",
+    tech: ["Vue.js", "Firebase", "Tailwind CSS"],
+    image: "✓"
+  },
+  {
+    id: 3,
+    title: "Weather Dashboard",
+    description: "Beautiful weather dashboard with forecasts and interactive maps.",
+    tech: ["React", "API Integration", "Chart.js"],
+    image: "☀️"
+  },
+  {
+    id: 4,
+    title: "Portfolio Website",
+    description: "Responsive portfolio website showcasing projects and skills with modern design.",
+    tech: ["React", "Tailwind CSS", "Vite"],
+    image: "💼"
+  }
+]
+
+const defaultFooter = {
+  text: "© {year} Portfolio Website. Built with React, Vite & Tailwind CSS.",
+  socialMedia: [
+    { id: 1, name: "GitHub", url: "https://github.com", icon: "📱" },
+    { id: 2, name: "LinkedIn", url: "https://linkedin.com", icon: "💼" },
+    { id: 3, name: "Twitter", url: "https://twitter.com", icon: "🐦" }
+  ]
+}
+
 const EditPage = () => {
   const {
-    skills,
-    projects,
-    footer,
-    profilePhoto,
+    skills: contextSkills,
+    projects: contextProjects,
+    footer: contextFooter,
+    profilePhoto: contextProfilePhoto,
     addSkillCategory,
     updateSkillCategory,
     deleteSkillCategory,
@@ -23,6 +110,12 @@ const EditPage = () => {
     updateProfilePhoto
   } = usePortfolio()
 
+  // Use context values which are already synced with localStorage
+  // These are the source of truth for display
+  const skills = contextSkills
+  const projects = contextProjects
+  const footer = contextFooter
+
   // Skills editing state
   const [editingSkillCategory, setEditingSkillCategory] = useState(null)
   const [newSkillCategory, setNewSkillCategory] = useState({ title: '', skills: [] })
@@ -36,29 +129,44 @@ const EditPage = () => {
   const [imagePreview, setImagePreview] = useState(null)
   const [editingImagePreview, setEditingImagePreview] = useState(null)
 
-  // Footer editing state
-  const [footerText, setFooterText] = useState(footer.text || '')
+  // Footer editing state - initialize from localStorage
+  const [footerText, setFooterText] = useState(() => {
+    const saved = getFromLocalStorage('portfolio-footer', defaultFooter)
+    return saved.text || ''
+  })
   const [editingSocialMedia, setEditingSocialMedia] = useState(null)
   const [newSocialMedia, setNewSocialMedia] = useState({ name: '', url: '', icon: '' })
 
-  // Profile photo editing state
-  const [profilePhotoValue, setProfilePhotoValue] = useState(profilePhoto || '')
-  const [profilePhotoPreview, setProfilePhotoPreview] = useState(null)
+  // Profile photo editing state - initialize from localStorage
+  const [profilePhotoValue, setProfilePhotoValue] = useState(() => {
+    return getProfilePhotoFromStorage()
+  })
+  const [profilePhotoPreview, setProfilePhotoPreview] = useState(() => {
+    const photo = getProfilePhotoFromStorage()
+    return photo && photo.startsWith('data:image') ? photo : null
+  })
 
-  // Update footerText when footer changes
+  // Sync with context changes (which sync with localStorage)
   useEffect(() => {
-    setFooterText(footer.text || '')
-  }, [footer.text])
+    const saved = getFromLocalStorage('portfolio-footer', defaultFooter)
+    setFooterText(saved.text || '')
+  }, [contextFooter])
 
-  // Update profilePhotoValue when profilePhoto changes
   useEffect(() => {
-    setProfilePhotoValue(profilePhoto || '')
-    if (profilePhoto && profilePhoto.startsWith('data:image')) {
-      setProfilePhotoPreview(profilePhoto)
+    const photo = getProfilePhotoFromStorage()
+    setProfilePhotoValue(photo)
+    if (photo && photo.startsWith('data:image')) {
+      setProfilePhotoPreview(photo)
     } else {
       setProfilePhotoPreview(null)
     }
-  }, [profilePhoto])
+  }, [contextProfilePhoto])
+  
+  // Update skills and projects when context changes
+  useEffect(() => {
+    // Skills and projects are displayed from context, so we don't need local state for them
+    // They're already synced through the context updates
+  }, [contextSkills, contextProjects])
 
   // Skills functions
   const handleAddSkillCategory = () => {

@@ -10,56 +10,62 @@ const defaultSkills = [
   },
   {
     title: "Backend",
-    skills: ["Node.js", "Python", "Express", "MongoDB", "PostgreSQL", "REST APIs"]
+    skills: ["Node.js", "Python", "MongoDB", "PostgreSQL", "Laravel", "Flask", "MySQL"]
   },
   {
     title: "Tools & Others",
-    skills: ["Git", "Docker", "AWS", "Figma", "Vite", "Webpack"]
+    skills: ["Git", "Figma", "Vite", "Webpack", "Expo"]
+  },
+  {
+    title: "Content Creator", 
+    skills: ["Tiktok", "CapCut"]
   }
 ]
 
 const defaultProjects = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-featured e-commerce platform with payment integration and admin dashboard.",
-    tech: ["React", "Node.js", "MongoDB", "Stripe"],
-    image: "🛒"
+    title: "E-Commerce Pharmacy products Platform",
+    description: "An online pharmacy platform that enables users to browse, purchase, and manage pharmaceutical products securely and conveniently. It connects customers with licensed pharmacies for easy ordering, prescription uploads, and doorstep delivery.",
+    tech: ["Laravel", "node.js", "PostgreSQL"],
+    image: "/images/pharmacy.png"
   },
   {
     id: 2,
-    title: "Task Management App",
-    description: "Collaborative task management tool with real-time updates and team collaboration features.",
-    tech: ["Vue.js", "Firebase", "Tailwind CSS"],
-    image: "✓"
+    title: "A Web Application for detecting plant disease",
+    description: "A web application that uses computer vision and machine learning to analyze leaf images and automatically detect plant diseases. It provides farmers and gardeners with fast, accurate diagnoses, treatment recommendations, and tracking of plant health over time.",
+    tech: ["Flask", "Tensorflow", "Yolo", "SQLite", "Bootstrap"],
+    image: "/images/plant.png"
   },
   {
     id: 3,
-    title: "Weather Dashboard",
-    description: "Beautiful weather dashboard with forecasts and interactive maps.",
-    tech: ["React", "API Integration", "Chart.js"],
-    image: "☀️"
+    title: "RestaurantApp",
+    description: "A web application that allows users to browse menus, place online orders, reserve tables, and manage deliveries with ease. It helps restaurants streamline their operations while offering customers a fast and convenient dining experience.",
+    tech: ["TypeScript", "node.js", "Laravel", "TailwindCss", "vite.js", "PostgreSQL"],
+    image: "/images/restaurant.png"
   },
   {
     id: 4,
-    title: "Portfolio Website",
-    description: "Responsive portfolio website showcasing projects and skills with modern design.",
-    tech: ["React", "Tailwind CSS", "Vite"],
-    image: "💼"
+    title: "Ship game",
+    description: "A strategic ship-battle game where players place fleets and take turns firing to locate and sink opponents' ships. Features single-player AI, local/online multiplayer, power-ups, and a scoring/ranking system.",
+    tech: ["Laravel", "Node.js", "Bootstrap", "React"],
+    image: "/images/play.png"
   }
 ]
 
 const defaultFooter = {
   text: "© {year} Portfolio Website. Built with React, Vite & Tailwind CSS.",
   socialMedia: [
-    { id: 1, name: "GitHub", url: "https://github.com", icon: "📱" },
-    { id: 2, name: "LinkedIn", url: "https://linkedin.com", icon: "💼" },
-    { id: 3, name: "Twitter", url: "https://twitter.com", icon: "🐦" }
+    {id: 1, name: "GitHub", url: "https://github.com/KamelABA", icon: "Github"},
+    {id: 2, name: "LinkedIn", url: "https://www.linkedin.com/in/abada-kamel-b3554333b", icon: "LinkedIn"},
+    {id: 3, name: "Facebook", url: "https://www.facebook.com/abada.kamel.447832", icon: "Facebook"},
+    {id: 4, name: "Tiktok", url: "https://www.tiktok.com/@kamel_abada", icon: "Tiktok"}
   ]
 }
 
-// Default profile photo - will try to use the image from public/images/ or fallback
-const defaultProfilePhoto = '/images/kamoula.jpg'
+const defaultProfile = {
+  photo: '/images/kamoula.jpg'
+}
 
 export const PortfolioProvider = ({ children }) => {
   const [skills, setSkills] = useState(() => {
@@ -85,9 +91,26 @@ export const PortfolioProvider = ({ children }) => {
     return defaultFooter
   })
 
-  const [profilePhoto, setProfilePhoto] = useState(() => {
-    const saved = localStorage.getItem('portfolio-profile-photo')
-    return saved || defaultProfilePhoto
+  const [profile, setProfile] = useState(() => {
+    // Check for new JSON format
+    const saved = localStorage.getItem('portfolio-profile')
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      // Ensure photo exists (for backward compatibility)
+      if (!parsed.photo) {
+        parsed.photo = defaultProfile.photo
+      }
+      return parsed
+    }
+    // Migrate from old string format if it exists
+    const oldSaved = localStorage.getItem('portfolio-profile-photo')
+    if (oldSaved) {
+      const migrated = { photo: oldSaved }
+      localStorage.setItem('portfolio-profile', JSON.stringify(migrated))
+      localStorage.removeItem('portfolio-profile-photo')
+      return migrated
+    }
+    return defaultProfile
   })
 
   // Save to localStorage whenever data changes
@@ -104,8 +127,8 @@ export const PortfolioProvider = ({ children }) => {
   }, [footer])
 
   useEffect(() => {
-    localStorage.setItem('portfolio-profile-photo', profilePhoto)
-  }, [profilePhoto])
+    localStorage.setItem('portfolio-profile', JSON.stringify(profile))
+  }, [profile])
 
   // Skills functions
   const addSkillCategory = (category) => {
@@ -179,16 +202,17 @@ export const PortfolioProvider = ({ children }) => {
     })
   }
 
-  // Profile photo functions
+  // Profile functions
   const updateProfilePhoto = (photo) => {
-    setProfilePhoto(photo)
+    setProfile({ ...profile, photo })
   }
 
   const value = {
     skills,
     projects,
     footer,
-    profilePhoto,
+    profile,
+    profilePhoto: profile.photo, // Keep for backward compatibility
     addSkillCategory,
     updateSkillCategory,
     deleteSkillCategory,
