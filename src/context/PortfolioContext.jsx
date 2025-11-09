@@ -35,7 +35,7 @@ const defaultProjects = [
     title: "A Web Application for detecting plant disease",
     description: "A web application that uses computer vision and machine learning to analyze leaf images and automatically detect plant diseases. It provides farmers and gardeners with fast, accurate diagnoses, treatment recommendations, and tracking of plant health over time.",
     tech: ["Flask", "Tensorflow", "Yolo", "SQLite", "Bootstrap"],
-    image: "/components/images/plant.png"
+    image: "/components/images/Home.png"
   },
   {
     id: 3,
