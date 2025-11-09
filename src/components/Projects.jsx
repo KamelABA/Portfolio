@@ -39,7 +39,7 @@ const Projects = () => {
                   />
                 ) : project.image && project.image.includes('.') && !project.image.match(/[\u{1F300}-\u{1F9FF}]/u) ? (
                   <img 
-                    src={`/images/${project.image}`}
+                    src={`/components/images/${project.image}`}
                     alt={project.title}
                     className="w-full h-full object-cover"
                     onError={(e) => {

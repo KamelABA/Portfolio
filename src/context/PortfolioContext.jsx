@@ -28,28 +28,28 @@ const defaultProjects = [
     title: "E-Commerce Pharmacy products Platform",
     description: "An online pharmacy platform that enables users to browse, purchase, and manage pharmaceutical products securely and conveniently. It connects customers with licensed pharmacies for easy ordering, prescription uploads, and doorstep delivery.",
     tech: ["Laravel", "node.js", "PostgreSQL"],
-    image: "/images/pharmacy.png"
+    image: "/components/images/pharm.PNG"
   },
   {
     id: 2,
     title: "A Web Application for detecting plant disease",
     description: "A web application that uses computer vision and machine learning to analyze leaf images and automatically detect plant diseases. It provides farmers and gardeners with fast, accurate diagnoses, treatment recommendations, and tracking of plant health over time.",
     tech: ["Flask", "Tensorflow", "Yolo", "SQLite", "Bootstrap"],
-    image: "/images/plant.png"
+    image: "/components/images/plant.png"
   },
   {
     id: 3,
     title: "RestaurantApp",
     description: "A web application that allows users to browse menus, place online orders, reserve tables, and manage deliveries with ease. It helps restaurants streamline their operations while offering customers a fast and convenient dining experience.",
     tech: ["TypeScript", "node.js", "Laravel", "TailwindCss", "vite.js", "PostgreSQL"],
-    image: "/images/restaurant.png"
+    image: "/components/images/resteurantapp0.PNG"
   },
   {
     id: 4,
     title: "Ship game",
     description: "A strategic ship-battle game where players place fleets and take turns firing to locate and sink opponents' ships. Features single-player AI, local/online multiplayer, power-ups, and a scoring/ranking system.",
     tech: ["Laravel", "Node.js", "Bootstrap", "React"],
-    image: "/images/play.png"
+    image: "/components/images/play.PNG"
   }
 ]
 
@@ -64,7 +64,7 @@ const defaultFooter = {
 }
 
 const defaultProfile = {
-  photo: '/images/kamoula.jpg'
+  photo: '/components/images/kamoula.jpg'
 }
 
 export const PortfolioProvider = ({ children }) => {

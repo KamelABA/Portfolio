@@ -11,8 +11,8 @@ const Hero = () => {
     } else if (profilePhoto.startsWith('http') || profilePhoto.startsWith('/')) {
       return profilePhoto
     } else {
-      // If it's a filename, try to load from images folder
-      return `/images/${profilePhoto}`
+      // If it's a filename, try to load from components/images folder
+      return `/components/images/${profilePhoto}`
     }
   }
 
@@ -28,7 +28,7 @@ const Hero = () => {
                 className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-blue-400 shadow-2xl"
                 onError={(e) => {
                   // Fallback to default image if error
-                  e.target.src = '/images/kamoula.jpg'
+                  e.target.src = '/components/images/kamoula.jpg'
                 }}
               />
               <div className="absolute inset-0 rounded-full border-4 border-blue-500 opacity-20 animate-pulse"></div>

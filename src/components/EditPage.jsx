@@ -20,7 +20,7 @@ const getProfilePhotoFromStorage = () => {
     const saved = localStorage.getItem('portfolio-profile')
     if (saved) {
       const parsed = JSON.parse(saved)
-      return parsed.photo || '/images/kamoula.jpg'
+      return parsed.photo || '/components/images/kamoula.jpg'
     }
     // Try old format for migration
     const oldSaved = localStorage.getItem('portfolio-profile-photo')
@@ -30,7 +30,7 @@ const getProfilePhotoFromStorage = () => {
   } catch (error) {
     console.error('Error reading profile photo from localStorage:', error)
   }
-  return '/images/kamoula.jpg'
+  return '/components/images/kamoula.jpg'
 }
 
 // Default values (matching PortfolioContext defaults)
@@ -303,9 +303,9 @@ const EditPage = () => {
   }
 
   const handleRemoveProfilePhoto = () => {
-    setProfilePhotoValue('/images/kamoula.jpg')
+    setProfilePhotoValue('/components/images/kamoula.jpg')
     setProfilePhotoPreview(null)
-    updateProfilePhoto('/images/kamoula.jpg')
+    updateProfilePhoto('/components/images/kamoula.jpg')
   }
 
   const handleSaveProfilePhoto = () => {
@@ -335,12 +335,12 @@ const EditPage = () => {
                       profilePhotoPreview || 
                       (profilePhotoValue && profilePhotoValue.startsWith('data:image') ? profilePhotoValue : 
                       (profilePhotoValue && (profilePhotoValue.startsWith('http') || profilePhotoValue.startsWith('/')) ? profilePhotoValue :
-                      (profilePhotoValue ? `/images/${profilePhotoValue}` : '/images/kamoula.jpg')))
+                      (profilePhotoValue ? `/components/images/${profilePhotoValue}` : '/components/images/kamoula.jpg')))
                     }
                     alt="Profile Preview" 
                     className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-400 shadow-lg"
                     onError={(e) => {
-                      e.target.src = '/images/kamoula.jpg'
+                      e.target.src = '/components/images/kamoula.jpg'
                     }}
                   />
                 </div>
@@ -365,7 +365,7 @@ const EditPage = () => {
                   <span className="text-gray-300 text-sm">OR</span>
                   <input
                     type="text"
-                    placeholder="URL (https://...) or filename from /images/"
+                    placeholder="URL (https://...) or filename from /components/images/"
                     value={profilePhotoValue && !profilePhotoValue.startsWith('data:image') ? profilePhotoValue : ''}
                     onChange={(e) => {
                       setProfilePhotoValue(e.target.value)
@@ -375,7 +375,7 @@ const EditPage = () => {
                   />
                 </div>
                 <p className="text-gray-400 text-xs mt-1">
-                  Tip: Upload image above, paste image URL, or reference image from /images/ folder (e.g., kamoula.jpg)
+                  Tip: Upload image above, paste image URL, or reference image from /components/images/ folder (e.g., kamoula.jpg)
                 </p>
               </div>
 
@@ -396,7 +396,7 @@ const EditPage = () => {
                   ) : profilePhotoValue.includes('.') && !profilePhotoValue.match(/[\u{1F300}-\u{1F9FF}]/u) ? (
                     <div className="w-32 h-32 bg-gray-600 rounded-full overflow-hidden border-4 border-blue-400">
                       <img 
-                        src={`/images/${profilePhotoValue}`}
+                        src={`/components/images/${profilePhotoValue}`}
                         alt="Preview" 
                         className="w-full h-full object-cover"
                         onError={(e) => {
@@ -575,7 +575,7 @@ const EditPage = () => {
                   <span className="text-gray-300 text-sm">OR</span>
                   <input
                     type="text"
-                    placeholder="Emoji (🛒), URL (https://...), or filename from /images/"
+                    placeholder="Emoji (🛒), URL (https://...), or filename from /components/images/"
                     value={newProject.image && !newProject.image.startsWith('data:image') ? newProject.image : ''}
                     onChange={(e) => {
                       setNewProject({ ...newProject, image: e.target.value })
@@ -584,7 +584,7 @@ const EditPage = () => {
                     className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:border-blue-400"
                   />
                   <p className="text-gray-400 text-xs mt-1">
-                    Tip: Upload image above, use emoji, paste image URL, or reference image from /images/ folder
+                    Tip: Upload image above, use emoji, paste image URL, or reference image from /components/images/ folder
                   </p>
                 </div>
                 {(imagePreview || (newProject.image && newProject.image.startsWith('data:image'))) && (
@@ -620,7 +620,7 @@ const EditPage = () => {
                     ) : newProject.image.includes('.') && !newProject.image.match(/[\u{1F300}-\u{1F9FF}]/u) ? (
                       <div className="w-full h-48 bg-gray-600 rounded-lg overflow-hidden border border-gray-500">
                         <img 
-                          src={`/images/${newProject.image}`}
+                          src={`/components/images/${newProject.image}`}
                           alt="Preview" 
                           className="w-full h-full object-cover"
                           onError={(e) => {
@@ -716,7 +716,7 @@ const EditPage = () => {
                       <span className="text-gray-300 text-sm">OR</span>
                       <input
                         type="text"
-                        placeholder="Emoji (🛒), URL (https://...), or filename from /images/"
+                        placeholder="Emoji (🛒), URL (https://...), or filename from /components/images/"
                         value={editingProject.image && !editingProject.image.startsWith('data:image') ? editingProject.image : ''}
                         onChange={(e) => {
                           setEditingProject({ ...editingProject, image: e.target.value })
@@ -725,7 +725,7 @@ const EditPage = () => {
                         className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:border-blue-400"
                       />
                       <p className="text-gray-400 text-xs mt-1">
-                        Tip: Upload image above, use emoji, paste image URL, or reference image from /images/ folder
+                        Tip: Upload image above, use emoji, paste image URL, or reference image from /components/images/ folder
                       </p>
                     </div>
                     {(editingImagePreview || (editingProject.image && editingProject.image.startsWith('data:image'))) && (
@@ -761,7 +761,7 @@ const EditPage = () => {
                         ) : editingProject.image.includes('.') && !editingProject.image.match(/[\u{1F300}-\u{1F9FF}]/u) ? (
                           <div className="w-full h-48 bg-gray-600 rounded-lg overflow-hidden border border-gray-500">
                             <img 
-                              src={`/images/${editingProject.image}`}
+                              src={`/components/images/${editingProject.image}`}
                               alt="Preview" 
                               className="w-full h-full object-cover"
                               onError={(e) => {
@@ -865,7 +865,7 @@ const EditPage = () => {
                           />
                         ) : project.image && project.image.includes('.') && !project.image.match(/[\u{1F300}-\u{1F9FF}]/u) ? (
                           <img 
-                            src={`/images/${project.image}`}
+                            src={`/components/images/${project.image}`}
                             alt={project.title}
                             className="w-full h-full object-cover"
                             onError={(e) => {
