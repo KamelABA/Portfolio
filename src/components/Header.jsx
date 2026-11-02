@@ -118,6 +118,21 @@ const Header = () => {
                 </svg>
               )}
             </button>
+
+            {/* Resume / CV Download Link (Desktop) */}
+            <a
+              href="/Resume_Abada_Kamel.pdf"
+              download="Resume_Abada_Kamel.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-violet-600 dark:text-cyan-300 border border-violet-200 dark:border-white/10 bg-violet-50/80 dark:bg-white/5 hover:bg-violet-100 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 shadow-sm"
+              title="Download Resume / CV"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              CV
+            </a>
           </div>
 
           {/* Mobile Right Controls: Theme Toggle + Menu Button */}
@@ -175,6 +190,20 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
+
+            <a
+              href="/Resume_Abada_Kamel.pdf"
+              download="Resume_Abada_Kamel.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center justify-center gap-2 px-4 py-3 mt-2 rounded-lg text-sm font-semibold text-violet-600 dark:text-cyan-300 bg-violet-50 dark:bg-white/5 border border-violet-200 dark:border-white/10 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              Download CV (PDF)
+            </a>
           </div>
         </div>
       </nav>

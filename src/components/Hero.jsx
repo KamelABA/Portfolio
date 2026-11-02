@@ -157,22 +157,36 @@ const Hero = () => {
 
           {/* CTAs */}
           <div
-            className={`flex flex-col sm:flex-row gap-4 justify-center transition-all duration-1000 delay-[800ms]
+            className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 delay-[800ms]
               ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
             `}
           >
             <a
               href="#projects"
-              className="group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:-translate-y-0.5"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:-translate-y-0.5 w-full sm:w-auto"
             >
               View My Work
               <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
+
+            <a
+              href="/Resume_Abada_Kamel.pdf"
+              download="Resume_Abada_Kamel.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-violet-600 dark:text-cyan-300 bg-violet-50/80 dark:bg-white/5 hover:bg-violet-100 dark:hover:bg-white/10 border border-violet-200/80 dark:border-white/10 transition-all duration-300 hover:-translate-y-0.5 shadow-sm w-full sm:w-auto"
+            >
+              <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              Download CV
+            </a>
+
             <a
               href="#contact"
-              className="relative inline-flex items-center justify-center px-8 py-3.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white glass hover:bg-slate-100/90 dark:hover:bg-white/10 transition-all duration-300 hover:-translate-y-0.5 border border-slate-200/90 dark:border-white/10 shadow-sm"
+              className="relative inline-flex items-center justify-center px-8 py-3.5 rounded-xl font-semibold text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white glass hover:bg-slate-100/90 dark:hover:bg-white/10 transition-all duration-300 hover:-translate-y-0.5 border border-slate-200/90 dark:border-white/10 shadow-sm w-full sm:w-auto"
             >
               Get In Touch
             </a>

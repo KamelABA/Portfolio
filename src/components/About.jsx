@@ -45,6 +45,20 @@ const About = () => {
                 When I'm not coding, you can find me exploring new technologies, contributing to
                 open-source projects, or sharing my knowledge with the developer community.
               </p>
+              <div className="pt-2">
+                <a
+                  href="/Resume_Abada_Kamel.pdf"
+                  download="Resume_Abada_Kamel.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                  Download Full CV (PDF)
+                </a>
+              </div>
             </div>
           </div>
 
@@ -80,7 +94,7 @@ const About = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">Experience</h3>
-                    <p className="text-slate-700 dark:text-slate-300 font-medium">3+ Years of Development</p>
+                    <p className="text-slate-700 dark:text-slate-300 font-medium">4+ Years of Development</p>
                     <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Working with various startups and agencies</p>
                   </div>
                 </div>
