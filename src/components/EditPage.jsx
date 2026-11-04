@@ -124,7 +124,7 @@ const EditPage = () => {
 
   // Projects editing state
   const [editingProject, setEditingProject] = useState(null)
-  const [newProject, setNewProject] = useState({ title: '', description: '', tech: [], image: '' })
+  const [newProject, setNewProject] = useState({ title: '', description: '', tech: [], image: '', video: '' })
   const [newTech, setNewTech] = useState('')
   const [imagePreview, setImagePreview] = useState(null)
   const [editingImagePreview, setEditingImagePreview] = useState(null)
@@ -233,7 +233,7 @@ const EditPage = () => {
   const handleAddProject = () => {
     if (newProject.title.trim() && newProject.description.trim()) {
       addProject(newProject)
-      setNewProject({ title: '', description: '', tech: [], image: '' })
+      setNewProject({ title: '', description: '', tech: [], image: '', video: '' })
       setNewTech('')
       setImagePreview(null)
     }
@@ -558,6 +558,13 @@ const EditPage = () => {
                 className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:border-blue-400"
                 rows="3"
               />
+              <input
+                type="text"
+                placeholder="Demo Video URL (YouTube, e.g. https://www.youtube.com/watch?v=...)"
+                value={newProject.video || ''}
+                onChange={(e) => setNewProject({ ...newProject, video: e.target.value })}
+                className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:border-blue-400"
+              />
               
               {/* Image Upload Section */}
               <div className="space-y-2">
@@ -699,6 +706,13 @@ const EditPage = () => {
                     onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
                     className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:border-blue-400"
                     rows="3"
+              />
+              <input
+                type="text"
+                placeholder="Demo Video URL (YouTube, e.g. https://www.youtube.com/watch?v=...)"
+                value={editingProject.video || ''}
+                onChange={(e) => setEditingProject({ ...editingProject, video: e.target.value })}
+                className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:border-blue-400"
                   />
                   {/* Image Upload Section for Editing */}
                   <div className="space-y-2">

@@ -28,7 +28,8 @@ const defaultProjects = [
     title: "E-Commerce Pharmacy products Platform",
     description: "An online pharmacy platform that enables users to browse, purchase, and manage pharmaceutical products securely and conveniently. It connects customers with licensed pharmacies for easy ordering, prescription uploads, and doorstep delivery.",
     tech: ["Laravel", "node.js", "PostgreSQL"],
-    image: "/components/images/pharm.PNG"
+    image: "/components/images/pharm.PNG",
+    video: "https://www.youtube.com/watch?v=6BFQtbH_a4E"
   },
   {
     id: 2,
@@ -75,7 +76,18 @@ export const PortfolioProvider = ({ children }) => {
 
   const [projects, setProjects] = useState(() => {
     const saved = localStorage.getItem('portfolio-projects')
-    return saved ? JSON.parse(saved) : defaultProjects
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved)
+        return parsed.map((p) => {
+          const def = defaultProjects.find((dp) => dp.id === p.id)
+          return def ? { ...def, ...p, video: p.video || def.video } : p
+        })
+      } catch (e) {
+        return defaultProjects
+      }
+    }
+    return defaultProjects
   })
 
   const [footer, setFooter] = useState(() => {
